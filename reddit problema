@@ -1,0 +1,202 @@
+from tkinter import *
+import tkinter
+
+#cores daora
+
+cor1 = "#0a0a0a"  # black / preta
+cor2 = "#fafcff"  # white / branca
+cor3 = "#21c25c"  # green / verde
+cor4 = "#eb463b"  # red / vermelha
+cor5 = "#dedcdc"  # gray / Cizenta
+cor6 = "#3080f0"  # blue / azul
+
+#abrir janela
+
+janela = Tk()
+janela.title("")
+janela.geometry("800x600+50+25")
+janela.configure(bg=cor1)
+janela.resizable(width=False, height=False)
+
+#fazer contagem
+
+
+#variaveis
+
+global tempo
+global rodar
+global contador
+global limitador
+
+
+limitador = 59
+
+
+tempo = " 00:00:00 "
+rodar = False
+contador = -5
+
+#parte bruta inciar
+def iniciar():
+    global tempo
+    global contador
+    global limitador
+
+    if rodar:
+        if contador <= -1:
+            inicio = "começando em " +str(contador)
+            Label_tempo["text"] = inicio
+            Label_tempo["font"] = "arial 35"
+#quando começar
+        else :
+
+            Label_tempo["font"] = "times 60 bold"
+
+            temporaria = str(tempo)
+            h,m,s = map(int, temporaria.split(":"))
+            h = int(h)
+            m = int(m)
+            s = int(contador)
+
+            if (s>=limitador ):
+                contador = 0
+                m+=1
+
+            s = str(0) +str(s)
+            m = str(0) + str(m)
+            h = str(0) + str(h)
+
+            temporaria = str(h[-2:])+":" +str(m[-2:])+":" +str(s[-2:])
+            Label_tempo["text"] = temporaria
+            tempo = temporaria
+
+
+
+        Label_tempo.after(1000,iniciar)
+        contador += 1
+
+
+
+#incio do tempo
+def start():
+    global rodar
+    rodar = True
+    iniciar()
+
+#pausar o tempo
+def pausar():
+    global rodar
+    rodar = False
+
+#reiniciar
+
+def reiniciar():
+    global contador
+    global tempo
+
+    contador = 0
+    tempo = "00:00:00"
+    Label_tempo["text"] = tempo
+
+
+
+
+
+
+
+#mostrando tempo
+
+Label_app = Label(janela, text='wrestling', fon=('arial 20'), bg=cor1, fg= cor2)
+Label_app.place(x=20, y=5)
+
+Label_tempo = Label(janela, text=tempo, fon=('times 60 bold'), bg=cor1, fg= cor6)
+Label_tempo.place(x=240, y=5)
+
+#reza que deu certo
+#botao
+
+def entrar_valores(event):
+    todos_valores = event
+    pontos =eval("9/9")
+    valor_textoR.set(todos_valores)
+
+#iniciar
+botao_iniciar = Button(janela, command=start, text="iniciar", width=18, height=4, bg=cor1, fg=cor2, font=("ivy 14 bold"), relief="raised", overrelief=("ridge"))
+botao_iniciar.place(x=50, y=100)
+
+#pausar
+botao_pausar = Button(janela, command=pausar,text="pausar", width=18, height=4, bg=cor1, fg=cor2, font=("ivy 14 bold"), relief="raised", overrelief=("ridge"))
+botao_pausar.place(x=300, y=100)
+
+#reiniciar
+botao_reiniciar = Button(janela, command=reiniciar, text="reiniciar", width=18, height=4, bg=cor1, fg=cor2, font=("ivy 14 bold"), relief="raised", overrelief=("ridge"))
+botao_reiniciar.place(x=550, y=100)
+
+
+
+#lutadores
+
+Label_app = Label(janela, text='Lutador', fon=('arial 30'), bg=cor4, fg= cor2)
+Label_app.place(x=135, y=220)
+
+Label_app = Label(janela, text='Lutador', fon=('arial 30'), bg=cor6, fg= cor2)
+Label_app.place(x=550, y=220)
+
+#pontuação Vermelho
+
+R1 =+1
+R2 =+2
+R3 =+3
+
+br1 = Button(janela,command=lambda : entrar_valores(R1), text="+1", width=10, height=4, bg=cor1, fg=cor2, font=("ivy 14 bold"), relief="raised", overrelief=("ridge"))
+br1.place(x=80, y=300)
+
+br2 = Button(janela, command=lambda : entrar_valores(+2) , text="+2", width=10, height=4, bg=cor1, fg=cor2, font=("ivy 14 bold"), relief="raised", overrelief=("ridge"))
+br2.place(x=208, y=300)
+
+br3 = Button(janela, command=lambda : entrar_valores(+3), text="+3",width=10, height=4, bg=cor1, fg=cor2, font=("ivy 14 bold"), relief="raised", overrelief=("ridge"))
+br3.place(x=80, y=405)
+
+bReset = Button(janela, command=lambda : entrar_valores(0), text="reiniciar", width=10, height=4, bg=cor1, fg=cor2, font=("ivy 14 bold"), relief="raised", overrelief=("ridge"))
+bReset.place(x=208, y=405)
+
+
+
+
+
+
+
+
+
+
+#pontução azul
+
+botao_B1 = Button(janela, command=start, text="+1", width=10, height=4, bg=cor1, fg=cor2, font=("ivy 14 bold"), relief="raised", overrelief=("ridge"))
+botao_B1.place(x=500, y=300)
+
+botao_B2 = Button(janela, command=start, text="+2", width=10, height=4, bg=cor1, fg=cor2, font=("ivy 14 bold"), relief="raised", overrelief=("ridge"))
+botao_B2.place(x=620, y=300)
+
+botao_B3 = Button(janela, command=start, text="+3", width=10, height=4, bg=cor1, fg=cor2, font=("ivy 14 bold"), relief="raised", overrelief=("ridge"))
+botao_B3.place(x=500, y=405)
+
+botao_Breset = Button(janela, command=start, text="reiniciar", width=10, height=4, bg=cor1, fg=cor2, font=("ivy 14 bold"), relief="raised", overrelief=("ridge"))
+botao_Breset.place(x=620, y=405)
+
+# 0 x 0
+valor_textoR = StringVar()
+3
+
+
+PR = Label(janela, textvariable=valor_textoR, fon=('arial 35'), bg=cor1, fg= cor2)
+PR.place(x=280, y=220)
+
+Label_app = Label(janela, text='x', fon=('arial 35'), bg=cor1, fg= cor2)
+Label_app.place(x=395, y=220)
+
+Label_app = Label(janela, text="X", fon=('arial 35'), bg=cor1, fg= cor2)
+Label_app.place(x=650, y=220)
+
+
+
+janela.mainloop()
